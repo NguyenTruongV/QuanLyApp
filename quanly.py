@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS employees (
 """)
 conn.commit()
 
-# Hàm thêm nhân viên
+
 def add_employee():
     name = name_entry.get()
     age = age_entry.get()
@@ -26,25 +26,25 @@ def add_employee():
     if name and age and department:
         cursor.execute("INSERT INTO employees (name, age, department) VALUES (?, ?, ?)", (name, age, department))
         conn.commit()
-        messagebox.showinfo("Thành công", "Đã thêm nhân viên!")
+        messagebox.showinfo("Thành công", "Đã thêm sinh viên!")
         clear_entries()
         load_employees()
     else:
         messagebox.showwarning("Lỗi", "Vui lòng điền đầy đủ thông tin!")
 
-# Hàm xóa nhân viên
+
 def delete_employee():
     try:
         selected_item = tree.focus()
         employee_id = tree.item(selected_item)['values'][0]
         cursor.execute("DELETE FROM employees WHERE id = ?", (employee_id,))
         conn.commit()
-        messagebox.showinfo("Thành công", "Đã xóa nhân viên!")
+        messagebox.showinfo("Thành công", "Đã xóa sinh viên!")
         load_employees()
     except IndexError:
-        messagebox.showwarning("Lỗi", "Vui lòng chọn một nhân viên để xóa!")
+        messagebox.showwarning("Lỗi", "Vui lòng chọn một sinh viên để xóa!")
 
-# Hàm cập nhật nhân viên
+
 def update_employee():
     try:
         selected_item = tree.focus()
@@ -57,15 +57,15 @@ def update_employee():
             cursor.execute("UPDATE employees SET name = ?, age = ?, department = ? WHERE id = ?",
                            (name, age, department, employee_id))
             conn.commit()
-            messagebox.showinfo("Thành công", "Đã cập nhật thông tin nhân viên!")
+            messagebox.showinfo("Thành công", "Đã cập nhật thông tin sinh viên!")
             clear_entries()
             load_employees()
         else:
             messagebox.showwarning("Lỗi", "Vui lòng điền đầy đủ thông tin!")
     except IndexError:
-        messagebox.showwarning("Lỗi", "Vui lòng chọn một nhân viên để cập nhật!")
+        messagebox.showwarning("Lỗi", "Vui lòng chọn một sinh viên để cập nhật!")
 
-# Hàm tải dữ liệu nhân viên
+
 def load_employees():
     for row in tree.get_children():
         tree.delete(row)
